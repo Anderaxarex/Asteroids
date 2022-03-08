@@ -16,7 +16,8 @@ private:
     void init(const char* title, int x, int y, int w, int h, Uint32 flags);
     void eventhandler();
     void gameloop();
-    void draw();
+    void drawrect(int x, int y, int w, int h);
+    void drawtext(const char* msg);
 
     SDL_Window* window;
     SDL_Renderer* renderer;

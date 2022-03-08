@@ -17,18 +17,20 @@ void Game::run()
     gameloop();
 }
 
-void Game::draw()
+void Game::drawrect(int x, int y, int w, int h)
 {
     SDL_RenderClear(renderer);
 
     SDL_Rect rect;
-    rect.x = 512;
-    rect.y = 300;
-    rect.w = 45;
-    rect.h = 60;
+    rect.x = x;
+    rect.y = y;
+    rect.w = w;
+    rect.h = h;
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(renderer, &rect);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
     SDL_RenderPresent(renderer);
 
@@ -61,11 +63,30 @@ void Game::eventhandler()
     {
         case SDL_QUIT:
             Game::m_gameState::QUIT;
-            SDL_Quit;
-            break;
+            SDL_DestroyWindow(window);
+            SDL_DestroyRenderer(renderer);
+            SDL_Quit();
+        break;
         case SDL_KEYDOWN:
-            std::cout<<"key press detected"<<std::endl;
-            draw();
+            switch (event.key.keysym.sym)
+                case SDLK_w:
+                    std::cout<<"move forward"<<std::endl;
+                    drawrect(200, 200, 200, 200);
+                    break;
+                case SDLK_a:
+                    std::cout<<"move left"<<std::endl;
+                    drawrect(300, 300, 200, 200);
+                    break;
+                case SDLK_s:
+                    std::cout<<"move backwards"<<std::endl;
+                    drawrect(400, 400, 200, 200);
+                    break;
+                case SDLK_d:
+                    std::cout<<"move right"<<std::endl;
+                    drawrect(400, 150, 200, 200);
+                    break;
+        break;
+            
     }
 
 
