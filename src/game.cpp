@@ -12,10 +12,12 @@ Game::~Game(){}
 void Game::run()
 {
     init("Asteroids!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_screenheight, m_screenwidth, SDL_WINDOW_SHOWN);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderPresent(renderer);
     gameloop();
 }
 
-void Game::draw(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void Game::draw()
 {
     SDL_RenderClear(renderer);
 
@@ -28,7 +30,6 @@ void Game::draw(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderDrawRect(renderer, &rect);
 
-    SDL_SetRenderDrawColor(renderer, r, g, b, a);
     SDL_RenderPresent(renderer);
 
 }
@@ -60,9 +61,11 @@ void Game::eventhandler()
     {
         case SDL_QUIT:
             Game::m_gameState::QUIT;
+            SDL_Quit;
             break;
-        default:
-            draw(0, 0, 0, 255);
+        case SDL_KEYDOWN:
+            std::cout<<"key press detected"<<std::endl;
+            draw();
     }
 
 
